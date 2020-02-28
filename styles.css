@@ -10,6 +10,7 @@ body {
 body {
     display: flex;
     align-items: center;
+    flex-direction: column;
 }
 
 #maze {
@@ -52,4 +53,31 @@ td.path {
 #loading {
     margin: 0 auto;
     font-style: italic;
+    display: none;
+}
+
+.dimensions {
+    padding: 50px 0;
+    display: flex;
+    justify-content: space-evenly;
+    width: 300px;
+}
+
+input {
+    -webkit-appearance: none;
+    height: 50px;
+    padding: 10px;
+}
+
+input[type=number] {
+    font-size: 35px;
+    width: 50px;
+    background-color: rgb(46, 44, 44);
+    color: white;
+}
+
+input[type=button] {
+    cursor: pointer;
+    font-size: 20px;
+    height: 74px;
 }

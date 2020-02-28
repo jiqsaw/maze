@@ -1,7 +1,7 @@
-function init() {
+function generate(width, height) {
 
-    const width = 5;
-    const height = 5;
+    document.getElementById('loading').style.display = 'block';
+
     const url = 'https://hubbado-maze-api.herokuapp.com/generate?width=' + width + '&height=' + height;
 
     var xhr = new XMLHttpRequest();
@@ -45,22 +45,22 @@ function draw(data) {
             var classNames = '';
 
 
-            if (value >= 8) {
+            if (value & 8) {
                 value -= 8;
                 classNames += 'left ';
             }
 
-            if (value >= 4) {
+            if (value & 4) {
                 value -= 4;
                 classNames += 'bottom ';
             }
 
-            if (value >= 2) {
+            if (value & 2) {
                 value -= 2;
                 classNames += 'right ';
             }
 
-            if (value >= 1) {
+            if (value & 1) {
                 value -= 1;
                 classNames += 'top ';
             }
@@ -78,10 +78,11 @@ function draw(data) {
     loading.style.display = 'none';
     maze.style.display = 'initial';
 
+    maze.innerHTML = '';
     maze.appendChild(table);
 
 
 
 }
 
-init();
+

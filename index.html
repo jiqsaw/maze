@@ -10,8 +10,15 @@
 
 <body>
 
-    <div id="loading">loading...</div>
-    <div id="maze"></div>
+    <div class="dimensions">
+        <input id="txtWidth" type="number" minlength="1" maxlength="20" value="5" />
+        <input id="txtHeight" type="number" minlength="1" maxlength="20" value="5" />
+        <input type="button" value="Generate" onclick="generate(txtWidth.value, txtHeight.value)">
+    </div>
+    <div>
+        <div id="loading">loading...</div>
+        <div id="maze"></div>
+    </div>
 
     <script src="script.js"></script>
 
