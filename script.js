@@ -1,26 +1,38 @@
+
 function generate(width, height) {
 
-    document.getElementById('loading').style.display = 'block';
+    if (width <= 0 || height <= 0) {
+        alert('Dimension values should be greater than 0');
+    } else {
 
-    const url = 'https://hubbado-maze-api.herokuapp.com/generate?width=' + width + '&height=' + height;
+        const data = {
+            cells: []
+        };
 
-    var xhr = new XMLHttpRequest();
+        document.getElementById('loading').style.display = 'block';
+        document.getElementById('maze').innerHTML = '';
+        
+        const url = 'https://hubbado-maze-api.herokuapp.com/generate?width=' + width + '&height=' + height;
 
-    xhr.open("GET", url);
-    xhr.send();
-
-
-    xhr.onload = () => {
-        if (xhr.status >= 200 && xhr.status < 300) {
-            const data = JSON.parse(xhr.responseText);
+        get(url).then(response => {
+            const object = JSON.parse(response);
+            data.cells = object.cells;
             draw(data);
-        } else {
-            console.log('Error!')
-        }
+        })
 
-    };
+    }
 
 }
+
+function get(url) {
+    return new Promise((resolve, reject) => {
+      const req = new XMLHttpRequest();
+      req.open('GET', url);
+      req.onload = () => req.status === 200 ? resolve(req.response) : reject(Error(req.statusText));
+      req.onerror = (e) => reject(Error(`Network Error: ${e}`));
+      req.send();
+    });
+  }
 
 
 function draw(data) {
@@ -65,7 +77,6 @@ function draw(data) {
                 classNames += 'top ';
             }
 
-            // td.innerHTML = cells[i][j];
             td.className = classNames.trimEnd();
 
             tr.appendChild(td)
@@ -76,12 +87,8 @@ function draw(data) {
     }
 
     loading.style.display = 'none';
-    maze.style.display = 'initial';
 
-    maze.innerHTML = '';
     maze.appendChild(table);
-
-
 
 }
 
